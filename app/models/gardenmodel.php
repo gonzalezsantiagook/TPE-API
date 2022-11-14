@@ -8,32 +8,40 @@ class gardenmodel {
         $this->db = new PDO('mysql:host=localhost;'.'dbname=db_shopgarden;charset=utf8', 'root','');
     }
 
-
-    public function getAllgarden() {
-        $query = $this->db->prepare("SELECT * FROM products");
+// accedo a todos los elementos
+    function getAllgarden() {
+    $query = $this->db->prepare("SELECT * FROM products");
         $query->execute();
-        $gardens = $query->fetchAll(PDO::FETCH_OBJ); 
-        
-        return $gardens;
+    $gardens = $query->fetchAll(PDO::FETCH_OBJ);     
+    return $gardens;
     }
 
-    public function get($id) {
-        $query = $this->db->prepare("SELECT * FROM products WHERE id = ?");
-        $query->execute([$id]);
-        $garden = $query->fetch(PDO::FETCH_OBJ);
-        
-        return $garden;
+// accedo por id
+function getById($id) {
+    $query = $this->db->prepare("SELECT * FROM products WHERE id = ?");
+    $query->execute([$id]);
+    $product = $query->fetch(PDO::FETCH_OBJ);        
+    return $product;
     }
 
-    function delete($id) {
-        $query = $this->db->prepare('DELETE FROM products WHERE id = ?');
-        $query->execute([$id]);
+//elimino
+function delete($id) {
+    $query = $this->db->prepare('DELETE FROM products WHERE id = ?');
+    $query->execute([$id]);
     }
 
-public function insertgarden($name, $price,$stock,$size,$type) {
-    $query = $this->db->prepare("INSERT INTO products ( name, price, stock, size,type) VALUES (?, ?, ?,?,?)");
+// inserto 
+function insert($name, $price,$stock,$size,$type) {
+    $query = $this->db->prepare("INSERT INTO products ( name,price,stock,size,type) VALUES (?, ?, ?,?,?)");
     $query->execute([$name,$price,$stock,$size,$type]);
 
     return $this->db->lastInsertId();
 }
+
+// upgradear una planta method= PUT
+function update($name,$price,$stock,$size,$type,$id) {
+    $query = $this->db->prepare("UPDATE products SET `name`=?,`price`=?,`stock`=?,`size`=?, `type`=? WHERE id=? ");
+    $query->execute([$name,$price,$stock,$size,$type,$id]);
+}
+
 }

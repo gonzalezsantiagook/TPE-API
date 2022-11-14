@@ -1,5 +1,5 @@
 <?php
-class gardenView {
+class gardenview {
 
     public function response($data, $status = 200) {
         header("Content-Type: application/json");
