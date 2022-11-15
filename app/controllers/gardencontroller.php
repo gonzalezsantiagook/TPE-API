@@ -89,6 +89,7 @@ function checkorder($order){
         $this->view->response("el orden $invalido, no existe",400);
     };
 }
+/*
 function validatepagination($page,$long){
     if($page<=0)
         $this->view->response("el numero de pagina no es correcto, indique un numero positivo",400);
@@ -99,7 +100,7 @@ function validatepagination($page,$long){
         return $long;
 
 }
-
+*/
 
 // traigo una planta con un id especifico    
     public function getgarden($params = null) {
