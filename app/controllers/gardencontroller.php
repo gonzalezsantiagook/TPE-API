@@ -17,20 +17,40 @@ class gardencontroller {
     return json_decode($this->data);
     }
 
-// accedo, reviso si tiene un filtro para traer los elementos y los traigo. en caso de que no, trae todos los productos
+// antes de traer todos los elementos primero va a revisar que no haya algo mas en el GET que le indique algun filtro, orden o paginado para traer los elementos.
     public function getgardens($params = null) {
-        if(!isset($_GET['type'])){
+        if(empty($_GET['type']) && empty($_GET['order']) /*&& (empty($_GET['page']) && empty($_GET['long']))*/){
         
             $gardens = $this->model->getAllgarden();
             $this->view->response($gardens);
         }
-        else{
+        else if (isset($_GET['type'])){
             $type = $_GET['type'];
             $products=$this->filterbytype($type);
             $this->view->response("las plantas con el tipo $type son:",200);
             $this->view->response($products);
         }
+        if(isset($_GET['order'])){
+                $place = 'stock';
+                $order = $_GET['order'];
+                $order=$this->checkorder($order);
+                $products=$this->model->orderproducts($place,$order);
+                $this->view->response("se ordenaron los productos de forma $order en base al stock de cada uno",200);
+                $this->view->response($products);
+        }
+        // paginado pero no logro hacerlo funcionar, dejo el proceso para consultar como terminarlo de forma correcta.
+        /*else if(isset($_GET['page']) && isset($_GET['long'])){
+            $page=$_GET['page'];
+            $long = $_GET['long'];
+            $this->validatepagination($page,$long);
+            $products=$this->model->getallpaginate($page,$long);
+            $this->view->response($products);
+
+        }*/
+                
     }
+
+
 // filtro con el valor que ya consegui antes
 function filterbytype($type){
     
@@ -53,6 +73,32 @@ function filterbytype($type){
     return $array; 
 }
 
+function checkorder($order){
+    $products = $this->model->getallgarden();
+    $array = array();
+    if ($order=='asc'){
+        $order='ASC';
+        return($order);
+
+    }
+    elseif($order =='des'){
+        $order='DESC';
+        return($order);
+    }else{
+        $invalido=$order;
+        $this->view->response("el orden $invalido, no existe",400);
+    };
+}
+function validatepagination($page,$long){
+    if($page<=0)
+        $this->view->response("el numero de pagina no es correcto, indique un numero positivo",400);
+    if($long<=0)
+        $this->view->response("la longitud es incorrecta, ingrese un numero positivo",400);
+    else 
+        return $page;
+        return $long;
+
+}
 
 
 // traigo una planta con un id especifico    
