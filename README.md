@@ -53,19 +53,25 @@
          /web2/Api/api/garden?order=asc     ('asc' para ascendente y 'des' para descendente)
 
         en este caso va a traer los productos ordenador por stock de forma ascendente.
-    
+-PAGINADO:
+        Para traer productos en formato pagina, paso por url la pagina que quiero traer y la longitud(cantidad) de los productos que quiero mostrar.
 
+        /web2/Api/api/garden?page=2&long=5  (ejemplo: en este caso trae de la pagina 2 de prodcutos y muestra en la pagina 5 productos)
 
+        'page'-> aclaro la pagina.     'long'-> aclaro la longitud de la pagina.
+
+        ACLARACION:
+        En caso que se pida la ultima pagina de productos (donde quedan 3 productos por ejemplo), y se determine longitud mayor a 3. se van a mostrar unicamente esos 3 productos finales ya que no tiene mas para mostrar.
 
  
 
 
 
-## Authors
+## Desarrollador
 
 - [@santiago gonzalez](https://github.com/gonzalezsantiagook/TPE-API.git)
 
-- En caso de consultas comunicarse al mail siguiente:
+- En caso de consultas comunicarse al siguiente mail:
 
             gonzalezsantiagook@gmail.com
 ![Logo](https://www.unicen.edu.ar/sites/default/files/imagenes/actualidad/2011-01/UNICEN_0.jpg)

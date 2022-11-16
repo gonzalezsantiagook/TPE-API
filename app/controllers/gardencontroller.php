@@ -19,7 +19,7 @@ class gardencontroller {
 
 // antes de traer todos los elementos primero va a revisar que no haya algo mas en el GET que le indique algun filtro, orden o paginado para traer los elementos.
     public function getgardens($params = null) {
-        if(empty($_GET['type']) && empty($_GET['order']) /*&& (empty($_GET['page']) && empty($_GET['long']))*/){
+        if(empty($_GET['type']) && empty($_GET['order']) && (empty($_GET['page']) && empty($_GET['long']))){
         
             $gardens = $this->model->getAllgarden();
             $this->view->response($gardens);
@@ -39,14 +39,14 @@ class gardencontroller {
                 $this->view->response($products);
         }
         // paginado pero no logro hacerlo funcionar, dejo el proceso para consultar como terminarlo de forma correcta.
-        /*else if(isset($_GET['page']) && isset($_GET['long'])){
+        else if(isset($_GET['page']) && isset($_GET['long'])){
             $page=$_GET['page'];
             $long = $_GET['long'];
             $this->validatepagination($page,$long);
             $products=$this->model->getallpaginate($page,$long);
             $this->view->response($products);
 
-        }*/
+        }
                 
     }
 
@@ -89,18 +89,14 @@ function checkorder($order){
         $this->view->response("el orden $invalido, no existe",400);
     };
 }
-/*
+
 function validatepagination($page,$long){
     if($page<=0)
         $this->view->response("el numero de pagina no es correcto, indique un numero positivo",400);
     if($long<=0)
         $this->view->response("la longitud es incorrecta, ingrese un numero positivo",400);
-    else 
-        return $page;
-        return $long;
-
 }
-*/
+
 
 // traigo una planta con un id especifico    
     public function getgarden($params = null) {

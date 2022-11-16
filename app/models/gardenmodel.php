@@ -53,13 +53,13 @@ function orderproducts($place,$order){
 }
 // traigo los productos, pero paginado
 // no logro hacer funcionar el paginado, queda el proceso para consultar en clase.
-/*
+
 function getallpaginate($page,$long){
     $query = $this->db->prepare("SELECT * FROM products LIMIT $page,$long");
     $query->execute();
     $products = $query->fetchAll(PDO::FETCH_OBJ);
     return $products;
-    }*/
+    }
 }
 
 
